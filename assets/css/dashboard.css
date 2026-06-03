@@ -1,0 +1,866 @@
+/**
+ * Live Campaign Dashboard — Frontend Styles
+ *
+ * Premium SaaS-style analytics dashboard with glassmorphism,
+ * floating cards, animated charts, and responsive design.
+ *
+ * @package LiveCampaignDashboard
+ */
+
+/* ============================================================
+   CSS Custom Properties (Design Tokens)
+   ============================================================ */
+:root {
+    --lcd-primary: #2563eb;
+    --lcd-primary-light: #3b82f6;
+    --lcd-primary-ultra-light: #dbeafe;
+    --lcd-accent: #10b981;
+    --lcd-accent-light: #34d399;
+    --lcd-accent-ultra-light: #d1fae5;
+
+    --lcd-bg: #f8fafc;
+    --lcd-panel-bg: #ffffff;
+    --lcd-card-bg: #ffffff;
+    --lcd-text: #0f172a;
+    --lcd-text-secondary: #64748b;
+    --lcd-text-muted: #94a3b8;
+    --lcd-border: #e2e8f0;
+    --lcd-border-light: #f1f5f9;
+
+    --lcd-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);
+    --lcd-shadow-md: 0 4px 12px rgba(0, 0, 0, 0.06);
+    --lcd-shadow-lg: 0 8px 30px rgba(0, 0, 0, 0.08);
+    --lcd-shadow-xl: 0 12px 40px rgba(0, 0, 0, 0.10);
+    --lcd-shadow-glow: 0 0 30px rgba(37, 99, 235, 0.15);
+    --lcd-shadow-hover: 0 16px 48px rgba(0, 0, 0, 0.12);
+
+    --lcd-radius-sm: 8px;
+    --lcd-radius-md: 12px;
+    --lcd-radius-lg: 16px;
+    --lcd-radius-xl: 20px;
+    --lcd-radius-2xl: 24px;
+
+    --lcd-font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+    --lcd-font-mono: 'SF Mono', 'Fira Code', 'Fira Mono', 'Roboto Mono', monospace;
+
+    --lcd-transition-fast: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+    --lcd-transition-base: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --lcd-transition-smooth: 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    --lcd-transition-bounce: 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+
+    --lcd-float-intensity: 5px;
+    --lcd-float-rotate: 1deg;
+}
+
+/* ============================================================
+   Google Fonts Import
+   ============================================================ */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+/* ============================================================
+   Dark Theme Overrides
+   ============================================================ */
+.lcd-theme-dark {
+    --lcd-bg: #0f172a;
+    --lcd-panel-bg: #1e293b;
+    --lcd-card-bg: #1e293b;
+    --lcd-text: #f1f5f9;
+    --lcd-text-secondary: #94a3b8;
+    --lcd-text-muted: #64748b;
+    --lcd-border: #334155;
+    --lcd-border-light: #1e293b;
+    --lcd-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.2);
+    --lcd-shadow-md: 0 4px 12px rgba(0, 0, 0, 0.3);
+    --lcd-shadow-lg: 0 8px 30px rgba(0, 0, 0, 0.35);
+    --lcd-shadow-xl: 0 12px 40px rgba(0, 0, 0, 0.4);
+    --lcd-shadow-glow: 0 0 30px rgba(37, 99, 235, 0.25);
+    --lcd-shadow-hover: 0 16px 48px rgba(0, 0, 0, 0.5);
+    --lcd-primary-ultra-light: rgba(37, 99, 235, 0.15);
+    --lcd-accent-ultra-light: rgba(16, 185, 129, 0.15);
+}
+
+/* ============================================================
+   Speed Modifiers
+   ============================================================ */
+.lcd-speed-slow {
+    --lcd-anim-duration: 8s;
+    --lcd-counter-duration: 3s;
+    --lcd-increment-interval: 6000;
+}
+.lcd-speed-medium {
+    --lcd-anim-duration: 5s;
+    --lcd-counter-duration: 2s;
+    --lcd-increment-interval: 4000;
+}
+.lcd-speed-fast {
+    --lcd-anim-duration: 3s;
+    --lcd-counter-duration: 1.2s;
+    --lcd-increment-interval: 2000;
+}
+
+/* ============================================================
+   Floating Intensity Modifiers (set via JS data attribute)
+   ============================================================ */
+.lcd-wrapper[data-float-intensity="none"] {
+    --lcd-float-intensity: 0px;
+    --lcd-float-rotate: 0deg;
+}
+.lcd-wrapper[data-float-intensity="low"] {
+    --lcd-float-intensity: 3px;
+    --lcd-float-rotate: 0.5deg;
+}
+.lcd-wrapper[data-float-intensity="medium"] {
+    --lcd-float-intensity: 5px;
+    --lcd-float-rotate: 1deg;
+}
+.lcd-wrapper[data-float-intensity="high"] {
+    --lcd-float-intensity: 8px;
+    --lcd-float-rotate: 1.5deg;
+}
+
+/* ============================================================
+   Wrapper & Layout
+   ============================================================ */
+.lcd-wrapper {
+    position: relative;
+    max-width: 820px;
+    margin: 30px auto;
+    padding: 20px 20px;
+    font-family: var(--lcd-font);
+    color: var(--lcd-text);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.lcd-wrapper *,
+.lcd-wrapper *::before,
+.lcd-wrapper *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* ============================================================
+   Main Dashboard Panel
+   ============================================================ */
+.lcd-dashboard-panel {
+    background: var(--lcd-panel-bg);
+    border: 1px solid var(--lcd-border);
+    border-radius: var(--lcd-radius-2xl);
+    padding: 24px 28px 22px;
+    box-shadow: var(--lcd-shadow-lg);
+    position: relative;
+    z-index: 2;
+    transition: box-shadow var(--lcd-transition-base), transform var(--lcd-transition-base);
+    overflow: hidden;
+}
+
+.lcd-dashboard-panel::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--lcd-primary), var(--lcd-accent));
+    border-radius: var(--lcd-radius-2xl) var(--lcd-radius-2xl) 0 0;
+    opacity: 0.8;
+}
+
+/* ============================================================
+   Panel Header
+   ============================================================ */
+.lcd-panel-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+}
+
+.lcd-panel-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--lcd-text);
+    letter-spacing: -0.02em;
+    line-height: 1.3;
+    margin: 0;
+    padding: 0;
+    border: none;
+    background: none;
+}
+
+/* Live Badge */
+.lcd-live-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--lcd-accent-ultra-light);
+    color: var(--lcd-accent);
+    font-size: 12px;
+    font-weight: 600;
+    padding: 5px 12px;
+    border-radius: 20px;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+}
+
+.lcd-pulse-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--lcd-accent);
+    position: relative;
+    flex-shrink: 0;
+}
+
+.lcd-pulse-dot::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--lcd-accent);
+    transform: translate(-50%, -50%);
+    animation: lcd-pulse 2s ease-in-out infinite;
+}
+
+@keyframes lcd-pulse {
+    0%, 100% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+    50% { opacity: 0; transform: translate(-50%, -50%) scale(3); }
+}
+
+/* ============================================================
+   Metric Cards Grid
+   ============================================================ */
+.lcd-metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.lcd-metric-card {
+    background: var(--lcd-card-bg);
+    border: 1px solid var(--lcd-border);
+    border-radius: var(--lcd-radius-lg);
+    padding: 14px 16px;
+    transition:
+        transform var(--lcd-transition-bounce),
+        box-shadow var(--lcd-transition-base),
+        border-color var(--lcd-transition-base);
+    cursor: default;
+    position: relative;
+    overflow: hidden;
+}
+
+.lcd-metric-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: var(--lcd-radius-lg);
+    opacity: 0;
+    transition: opacity var(--lcd-transition-base);
+    pointer-events: none;
+    background: linear-gradient(135deg, rgba(37, 99, 235, 0.03), rgba(16, 185, 129, 0.03));
+}
+
+.lcd-metric-card:hover {
+    transform: translateY(-4px) scale(1.03);
+    box-shadow: var(--lcd-shadow-hover);
+    border-color: var(--lcd-primary-light);
+}
+
+.lcd-metric-card:hover::after {
+    opacity: 1;
+}
+
+.lcd-metric-value-wrap {
+    display: flex;
+    align-items: baseline;
+    gap: 2px;
+    margin-bottom: 3px;
+}
+
+.lcd-metric-prefix {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--lcd-text);
+    opacity: 0.7;
+}
+
+.lcd-metric-value {
+    font-size: 24px;
+    font-weight: 800;
+    color: var(--lcd-text);
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+    font-variant-numeric: tabular-nums;
+}
+
+.lcd-metric-label {
+    display: block;
+    font-size: 12px;
+    color: var(--lcd-text-secondary);
+    font-weight: 500;
+    margin-bottom: 2px;
+}
+
+.lcd-metric-growth {
+    font-size: 12px;
+    font-weight: 600;
+    display: inline-block;
+}
+
+.lcd-accent-text {
+    color: var(--lcd-accent);
+}
+
+/* ============================================================
+   Chart Section — Bar Graph
+   ============================================================ */
+.lcd-chart-section {
+    margin-bottom: 16px;
+}
+
+.lcd-chart-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--lcd-text-secondary);
+    margin-bottom: 10px;
+    margin-top: 0;
+    padding: 0;
+    border: none;
+    background: none;
+    letter-spacing: -0.01em;
+}
+
+.lcd-chart-container {
+    display: flex;
+    align-items: flex-end;
+    gap: 8px;
+    height: 90px;
+    padding: 0 4px;
+}
+
+.lcd-bar-group {
+    flex: 1;
+    display: flex;
+    align-items: flex-end;
+    gap: 3px;
+    height: 100%;
+}
+
+.lcd-bar {
+    flex: 1;
+    border-radius: 4px 4px 2px 2px;
+    min-width: 0;
+    height: 0;
+    transition: height 1.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+    position: relative;
+}
+
+.lcd-bar.lcd-animated {
+    height: var(--bar-height);
+}
+
+.lcd-bar-spend {
+    background: #cbd5e1;
+}
+
+.lcd-theme-dark .lcd-bar-spend {
+    background: #475569;
+}
+
+.lcd-bar-revenue {
+    background: var(--lcd-primary);
+    background: linear-gradient(180deg, var(--lcd-primary-light), var(--lcd-primary));
+}
+
+.lcd-bar-group:hover .lcd-bar {
+    filter: brightness(1.1);
+    transform: scaleY(1.05);
+    transform-origin: bottom;
+}
+
+/* ============================================================
+   Progress Bars
+   ============================================================ */
+.lcd-progress-section {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.lcd-progress-row {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.lcd-progress-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.lcd-progress-label {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--lcd-text-secondary);
+}
+
+.lcd-progress-pct {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--lcd-text);
+    font-variant-numeric: tabular-nums;
+}
+
+.lcd-progress-track {
+    height: 7px;
+    border-radius: 10px;
+    background: var(--lcd-border-light);
+    overflow: hidden;
+    position: relative;
+}
+
+.lcd-theme-dark .lcd-progress-track {
+    background: #334155;
+}
+
+.lcd-progress-fill {
+    height: 100%;
+    border-radius: 10px;
+    background: linear-gradient(90deg, var(--lcd-primary), var(--lcd-primary-light));
+    width: 0;
+    transition: width 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    position: relative;
+}
+
+.lcd-progress-fill.lcd-animated {
+    width: var(--fill-width);
+}
+
+.lcd-progress-fill--accent {
+    background: linear-gradient(90deg, var(--lcd-accent), var(--lcd-accent-light));
+}
+
+.lcd-progress-fill::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    animation: lcd-shimmer 2.5s ease-in-out infinite;
+}
+
+@keyframes lcd-shimmer {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+
+/* ============================================================
+   Floating Cards (Glassmorphism)
+   ============================================================ */
+.lcd-floating-card {
+    position: absolute;
+    z-index: 10;
+    padding: 0;
+    will-change: transform;
+    pointer-events: auto;
+}
+
+.lcd-floating-card-inner {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    border-radius: var(--lcd-radius-lg);
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    box-shadow: var(--lcd-shadow-xl);
+    transition:
+        transform var(--lcd-transition-bounce),
+        box-shadow var(--lcd-transition-base);
+    cursor: default;
+}
+
+.lcd-theme-dark .lcd-floating-card-inner {
+    background: rgba(30, 41, 59, 0.85);
+    border: 1px solid rgba(71, 85, 105, 0.5);
+}
+
+.lcd-floating-card-inner:hover {
+    transform: scale(1.06);
+    box-shadow: var(--lcd-shadow-glow);
+}
+
+.lcd-float-top-right {
+    top: -20px;
+    right: -30px;
+    animation: lcd-float-a var(--lcd-anim-duration, 5s) ease-in-out infinite;
+}
+
+.lcd-float-bottom-left {
+    bottom: 40px;
+    left: -40px;
+    animation: lcd-float-b var(--lcd-anim-duration, 5s) ease-in-out infinite;
+    animation-delay: -2.5s;
+}
+
+@keyframes lcd-float-a {
+    0%, 100% {
+        transform: translateY(0) rotate(0deg);
+    }
+    25% {
+        transform: translateY(calc(-1 * var(--lcd-float-intensity))) rotate(calc(-1 * var(--lcd-float-rotate)));
+    }
+    50% {
+        transform: translateY(calc(0.6 * var(--lcd-float-intensity))) rotate(var(--lcd-float-rotate));
+    }
+    75% {
+        transform: translateY(calc(-0.4 * var(--lcd-float-intensity))) rotate(calc(-0.5 * var(--lcd-float-rotate)));
+    }
+}
+
+@keyframes lcd-float-b {
+    0%, 100% {
+        transform: translateY(0) rotate(0deg);
+    }
+    25% {
+        transform: translateY(var(--lcd-float-intensity)) rotate(var(--lcd-float-rotate));
+    }
+    50% {
+        transform: translateY(calc(-0.8 * var(--lcd-float-intensity))) rotate(calc(-1 * var(--lcd-float-rotate)));
+    }
+    75% {
+        transform: translateY(calc(0.5 * var(--lcd-float-intensity))) rotate(calc(0.5 * var(--lcd-float-rotate)));
+    }
+}
+
+.lcd-floating-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: var(--lcd-radius-sm);
+    flex-shrink: 0;
+}
+
+.lcd-floating-icon--chart {
+    background: var(--lcd-primary-ultra-light);
+    color: var(--lcd-primary);
+}
+
+.lcd-floating-icon--target {
+    background: var(--lcd-primary-ultra-light);
+    color: var(--lcd-primary);
+}
+
+.lcd-floating-text {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+}
+
+.lcd-floating-value {
+    font-size: 16px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: var(--lcd-text);
+    line-height: 1.2;
+}
+
+.lcd-floating-label {
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--lcd-text-secondary);
+    white-space: nowrap;
+}
+
+/* ============================================================
+   Floating Notification Popup
+   ============================================================ */
+.lcd-notification-popup {
+    position: absolute;
+    bottom: 10px;
+    right: 20px;
+    z-index: 15;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px;
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(12px) saturate(150%);
+    -webkit-backdrop-filter: blur(12px) saturate(150%);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: var(--lcd-radius-md);
+    box-shadow: var(--lcd-shadow-md);
+    opacity: 0;
+    transform: translateY(10px) scale(0.95);
+    transition: all var(--lcd-transition-smooth);
+    pointer-events: none;
+}
+
+.lcd-theme-dark .lcd-notification-popup {
+    background: rgba(30, 41, 59, 0.9);
+    border: 1px solid rgba(71, 85, 105, 0.5);
+}
+
+.lcd-notification-popup.lcd-notif-visible {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    pointer-events: auto;
+}
+
+.lcd-notif-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--lcd-accent);
+    flex-shrink: 0;
+    animation: lcd-pulse 1.5s ease-in-out infinite;
+}
+
+.lcd-notif-text {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--lcd-text);
+    white-space: nowrap;
+}
+
+/* ============================================================
+   Scroll-triggered fade-in
+   ============================================================ */
+.lcd-fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.lcd-fade-in.lcd-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ============================================================
+   Responsive Design
+   ============================================================ */
+
+/* Tablets */
+@media (max-width: 768px) {
+    .lcd-wrapper {
+        margin: 40px auto;
+        padding: 30px 16px;
+    }
+
+    .lcd-dashboard-panel {
+        padding: 28px 20px 24px;
+        border-radius: var(--lcd-radius-xl);
+    }
+
+    .lcd-metrics-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .lcd-metric-card {
+        padding: 18px 16px;
+    }
+
+    .lcd-metric-value {
+        font-size: 24px;
+    }
+
+    .lcd-panel-title {
+        font-size: 17px;
+    }
+
+    .lcd-chart-container {
+        height: 100px;
+        gap: 5px;
+    }
+
+    /* Reduce floating intensity on mobile */
+    .lcd-wrapper {
+        --lcd-float-intensity: 3px;
+        --lcd-float-rotate: 0.5deg;
+    }
+
+    .lcd-float-top-right {
+        top: -10px;
+        right: -10px;
+    }
+
+    .lcd-float-bottom-left {
+        bottom: 20px;
+        left: -10px;
+    }
+
+    .lcd-floating-card-inner {
+        padding: 10px 14px;
+    }
+
+    .lcd-floating-value {
+        font-size: 14px;
+    }
+
+    .lcd-floating-label {
+        font-size: 10px;
+    }
+
+    .lcd-floating-icon {
+        width: 30px;
+        height: 30px;
+    }
+
+    .lcd-floating-icon svg {
+        width: 16px;
+        height: 16px;
+    }
+
+    .lcd-notification-popup {
+        right: 10px;
+        bottom: 5px;
+        padding: 8px 12px;
+    }
+
+    .lcd-notif-text {
+        font-size: 11px;
+    }
+}
+
+/* Small mobiles */
+@media (max-width: 480px) {
+    .lcd-wrapper {
+        margin: 24px auto;
+        padding: 20px 10px;
+    }
+
+    .lcd-dashboard-panel {
+        padding: 20px 14px 18px;
+        border-radius: var(--lcd-radius-lg);
+    }
+
+    .lcd-panel-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+        margin-bottom: 20px;
+    }
+
+    .lcd-panel-title {
+        font-size: 16px;
+    }
+
+    .lcd-metric-value {
+        font-size: 22px;
+    }
+
+    .lcd-metric-prefix {
+        font-size: 16px;
+    }
+
+    .lcd-chart-container {
+        height: 80px;
+        gap: 4px;
+    }
+
+    .lcd-chart-title {
+        font-size: 12px;
+    }
+
+    .lcd-progress-label,
+    .lcd-progress-pct {
+        font-size: 11px;
+    }
+
+    .lcd-progress-track {
+        height: 6px;
+    }
+
+    /* Hide floating cards on very small screens to prevent overlap */
+    .lcd-float-top-right,
+    .lcd-float-bottom-left {
+        display: none;
+    }
+
+    .lcd-notification-popup {
+        display: none;
+    }
+}
+
+/* Large desktops */
+@media (min-width: 1200px) {
+    .lcd-wrapper {
+        max-width: 880px;
+    }
+
+    .lcd-dashboard-panel {
+        padding: 40px 38px 36px;
+    }
+
+    .lcd-metric-value {
+        font-size: 32px;
+    }
+
+    .lcd-chart-container {
+        height: 150px;
+    }
+}
+
+/* ============================================================
+   Reduced Motion Preference
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+    .lcd-floating-card,
+    .lcd-bar,
+    .lcd-progress-fill,
+    .lcd-metric-card,
+    .lcd-notification-popup,
+    .lcd-pulse-dot::after {
+        animation: none !important;
+        transition: none !important;
+    }
+
+    .lcd-bar {
+        height: var(--bar-height) !important;
+    }
+
+    .lcd-progress-fill {
+        width: var(--fill-width) !important;
+    }
+}
+
+/* ============================================================
+   Print Styles
+   ============================================================ */
+@media print {
+    .lcd-floating-card,
+    .lcd-notification-popup,
+    .lcd-live-badge {
+        display: none !important;
+    }
+
+    .lcd-dashboard-panel {
+        box-shadow: none;
+        border: 1px solid #ddd;
+    }
+
+    .lcd-bar {
+        height: var(--bar-height) !important;
+        transition: none;
+    }
+
+    .lcd-progress-fill {
+        width: var(--fill-width) !important;
+        transition: none;
+    }
+}

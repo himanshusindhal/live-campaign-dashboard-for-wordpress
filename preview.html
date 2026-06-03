@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Campaign Dashboard — Preview</title>
+    <link rel="stylesheet" href="assets/css/dashboard.css">
+    <style>
+        /* Preview page wrapper styling */
+        body {
+            margin: 0;
+            padding: 0;
+            background: #f0f4f8;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            min-height: 100vh;
+        }
+        .preview-header {
+            text-align: center;
+            padding: 40px 20px 0;
+        }
+        .preview-header h1 {
+            font-size: 28px;
+            font-weight: 800;
+            color: #0f172a;
+            margin: 0 0 8px;
+            letter-spacing: -0.03em;
+        }
+        .preview-header p {
+            font-size: 15px;
+            color: #64748b;
+            margin: 0;
+        }
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 100;
+            display: flex;
+            gap: 8px;
+        }
+        .theme-toggle button {
+            padding: 8px 16px;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            background: #fff;
+            font-family: inherit;
+            font-size: 13px;
+            font-weight: 600;
+            color: #475569;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .theme-toggle button:hover,
+        .theme-toggle button.active {
+            background: #2563eb;
+            color: #fff;
+            border-color: #2563eb;
+        }
+        body.dark-preview {
+            background: #0c1222;
+        }
+        body.dark-preview .preview-header h1 {
+            color: #f1f5f9;
+        }
+        body.dark-preview .preview-header p {
+            color: #94a3b8;
+        }
+        body.dark-preview .theme-toggle button {
+            background: #1e293b;
+            color: #94a3b8;
+            border-color: #334155;
+        }
+        body.dark-preview .theme-toggle button:hover,
+        body.dark-preview .theme-toggle button.active {
+            background: #2563eb;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <!-- Theme Toggle -->
+    <div class="theme-toggle">
+        <button id="btn-light" class="active" onclick="setTheme('light')">☀️ Light</button>
+        <button id="btn-dark" onclick="setTheme('dark')">🌙 Dark</button>
+    </div>
+
+    <div class="preview-header">
+        <h1>Live Campaign Dashboard</h1>
+        <p>Premium SaaS-style analytics widget for WordPress</p>
+    </div>
+
+    <!-- Dashboard Instance (replicates the shortcode output) -->
+    <div class="lcd-wrapper lcd-theme-light lcd-floating-enabled lcd-speed-medium"
+         id="lcd-preview-1"
+         data-lcd-instance="lcd-preview-1"
+         data-theme="light"
+         data-speed="medium"
+         style="--lcd-primary: #2563eb; --lcd-accent: #10b981;"
+         role="region"
+         aria-label="Campaign Performance Dashboard">
+
+        <!-- Floating Card: Top-Right -->
+        <div class="lcd-floating-card lcd-float-top-right" aria-hidden="true">
+            <div class="lcd-floating-card-inner">
+                <span class="lcd-floating-icon lcd-floating-icon--chart">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+                </span>
+                <div class="lcd-floating-text">
+                    <span class="lcd-floating-value lcd-accent-text">+347%</span>
+                    <span class="lcd-floating-label">ROAS this month</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Dashboard Panel -->
+        <div class="lcd-dashboard-panel">
+            <!-- Header -->
+            <div class="lcd-panel-header">
+                <h2 class="lcd-panel-title">Campaign Performance</h2>
+                <div class="lcd-live-badge">
+                    <span class="lcd-pulse-dot"></span>
+                    <span>Live</span>
+                </div>
+            </div>
+
+            <!-- Metric Cards Grid -->
+            <div class="lcd-metrics-grid">
+                <div class="lcd-metric-card" data-metric="revenue" data-value="2.4Cr">
+                    <div class="lcd-metric-value-wrap">
+                        <span class="lcd-metric-prefix">₹</span>
+                        <span class="lcd-metric-value lcd-counter" data-target="2.4Cr">2.4Cr</span>
+                    </div>
+                    <span class="lcd-metric-label">Revenue Generated</span>
+                    <span class="lcd-metric-growth lcd-accent-text">↑ 28% MoM</span>
+                </div>
+
+                <div class="lcd-metric-card" data-metric="roas" data-value="4.8x">
+                    <div class="lcd-metric-value-wrap">
+                        <span class="lcd-metric-value lcd-counter" data-target="4.8x">4.8x</span>
+                    </div>
+                    <span class="lcd-metric-label">Avg. ROAS</span>
+                    <span class="lcd-metric-growth lcd-accent-text">↑ 1.2x</span>
+                </div>
+
+                <div class="lcd-metric-card" data-metric="ctr" data-value="18%">
+                    <div class="lcd-metric-value-wrap">
+                        <span class="lcd-metric-value lcd-counter" data-target="18%">18%</span>
+                    </div>
+                    <span class="lcd-metric-label">CTR Rate</span>
+                    <span class="lcd-metric-growth lcd-accent-text">↑ 6%</span>
+                </div>
+            </div>
+
+            <!-- Chart Section -->
+            <div class="lcd-chart-section">
+                <h3 class="lcd-chart-title">Ad spend vs Revenue — last 9 weeks</h3>
+                <div class="lcd-chart-container">
+                    <div class="lcd-bar-group" data-week="1">
+                        <div class="lcd-bar lcd-bar-spend" style="--bar-height: 35%;"></div>
+                        <div class="lcd-bar lcd-bar-revenue" style="--bar-height: 28%;"></div>
+                    </div>
+                    <div class="lcd-bar-group" data-week="2">
+                        <div class="lcd-bar lcd-bar-spend" style="--bar-height: 30%;"></div>
+                        <div class="lcd-bar lcd-bar-revenue" style="--bar-height: 32%;"></div>
+                    </div>
+                    <div class="lcd-bar-group" data-week="3">
+                        <div class="lcd-bar lcd-bar-spend" style="--bar-height: 40%;"></div>
+                        <div class="lcd-bar lcd-bar-revenue" style="--bar-height: 38%;"></div>
+                    </div>
+                    <div class="lcd-bar-group" data-week="4">
+                        <div class="lcd-bar lcd-bar-spend" style="--bar-height: 42%;"></div>
+                        <div class="lcd-bar lcd-bar-revenue" style="--bar-height: 45%;"></div>
+                    </div>
+                    <div class="lcd-bar-group" data-week="5">
+                        <div class="lcd-bar lcd-bar-spend" style="--bar-height: 55%;"></div>
+                        <div class="lcd-bar lcd-bar-revenue" style="--bar-height: 65%;"></div>
+                    </div>
+                    <div class="lcd-bar-group" data-week="6">
+                        <div class="lcd-bar lcd-bar-spend" style="--bar-height: 60%;"></div>
+                        <div class="lcd-bar lcd-bar-revenue" style="--bar-height: 72%;"></div>
+                    </div>
+                    <div class="lcd-bar-group" data-week="7">
+                        <div class="lcd-bar lcd-bar-spend" style="--bar-height: 65%;"></div>
+                        <div class="lcd-bar lcd-bar-revenue" style="--bar-height: 80%;"></div>
+                    </div>
+                    <div class="lcd-bar-group" data-week="8">
+                        <div class="lcd-bar lcd-bar-spend" style="--bar-height: 58%;"></div>
+                        <div class="lcd-bar lcd-bar-revenue" style="--bar-height: 85%;"></div>
+                    </div>
+                    <div class="lcd-bar-group" data-week="9">
+                        <div class="lcd-bar lcd-bar-spend" style="--bar-height: 62%;"></div>
+                        <div class="lcd-bar lcd-bar-revenue" style="--bar-height: 92%;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Progress Bars Section -->
+            <div class="lcd-progress-section">
+                <div class="lcd-progress-row">
+                    <div class="lcd-progress-info">
+                        <span class="lcd-progress-label">Meta Ads</span>
+                        <span class="lcd-progress-pct">95%</span>
+                    </div>
+                    <div class="lcd-progress-track">
+                        <div class="lcd-progress-fill" data-width="95" style="--fill-width: 95%;"></div>
+                    </div>
+                </div>
+                <div class="lcd-progress-row">
+                    <div class="lcd-progress-info">
+                        <span class="lcd-progress-label">Quick Commerce Ads</span>
+                        <span class="lcd-progress-pct">90%</span>
+                    </div>
+                    <div class="lcd-progress-track">
+                        <div class="lcd-progress-fill" data-width="90" style="--fill-width: 90%;"></div>
+                    </div>
+                </div>
+                <div class="lcd-progress-row">
+                    <div class="lcd-progress-info">
+                        <span class="lcd-progress-label">Content Marketing</span>
+                        <span class="lcd-progress-pct">80%</span>
+                    </div>
+                    <div class="lcd-progress-track">
+                        <div class="lcd-progress-fill lcd-progress-fill--accent" data-width="80" style="--fill-width: 80%;"></div>
+                    </div>
+                </div>
+                <div class="lcd-progress-row">
+                    <div class="lcd-progress-info">
+                        <span class="lcd-progress-label">Google Ads</span>
+                        <span class="lcd-progress-pct">50%</span>
+                    </div>
+                    <div class="lcd-progress-track">
+                        <div class="lcd-progress-fill" data-width="50" style="--fill-width: 50%;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Floating Card: Bottom-Left -->
+        <div class="lcd-floating-card lcd-float-bottom-left" aria-hidden="true">
+            <div class="lcd-floating-card-inner">
+                <span class="lcd-floating-icon lcd-floating-icon--target">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+                </span>
+                <div class="lcd-floating-text">
+                    <span class="lcd-floating-value lcd-counter" data-target="200M+">200M+</span>
+                    <span class="lcd-floating-label">Views Generated</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Floating Notification Popup -->
+        <div class="lcd-notification-popup" aria-hidden="true">
+            <span class="lcd-notif-dot"></span>
+            <span class="lcd-notif-text">New conversion recorded!</span>
+        </div>
+    </div>
+
+    <!-- Mock lcdSettings for standalone preview -->
+    <script>
+        var lcdSettings = {
+            liveAnimation: '1',
+            animSpeed: 'medium',
+            primaryColor: '#2563eb',
+            accentColor: '#10b981',
+            floatingIntensity: 'medium'
+        };
+    </script>
+    <script src="assets/js/dashboard.js"></script>
+
+    <script>
+        function setTheme(theme) {
+            const wrapper = document.querySelector('.lcd-wrapper');
+            const body = document.body;
+
+            if (theme === 'dark') {
+                wrapper.classList.remove('lcd-theme-light');
+                wrapper.classList.add('lcd-theme-dark');
+                body.classList.add('dark-preview');
+                document.getElementById('btn-dark').classList.add('active');
+                document.getElementById('btn-light').classList.remove('active');
+            } else {
+                wrapper.classList.remove('lcd-theme-dark');
+                wrapper.classList.add('lcd-theme-light');
+                body.classList.remove('dark-preview');
+                document.getElementById('btn-light').classList.add('active');
+                document.getElementById('btn-dark').classList.remove('active');
+            }
+        }
+    </script>
+</body>
+</html>

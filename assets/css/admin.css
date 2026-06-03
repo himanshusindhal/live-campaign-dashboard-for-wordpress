@@ -1,0 +1,472 @@
+/**
+ * Live Campaign Dashboard — Admin Styles
+ *
+ * Clean, modern admin settings panel styling that integrates
+ * seamlessly with WordPress admin while maintaining premium feel.
+ *
+ * @package LiveCampaignDashboard
+ */
+
+/* ============================================================
+   Admin Variables
+   ============================================================ */
+:root {
+    --lcd-admin-primary: #2563eb;
+    --lcd-admin-primary-light: #3b82f6;
+    --lcd-admin-accent: #10b981;
+    --lcd-admin-bg: #f1f5f9;
+    --lcd-admin-card-bg: #ffffff;
+    --lcd-admin-text: #1e293b;
+    --lcd-admin-text-secondary: #64748b;
+    --lcd-admin-border: #e2e8f0;
+    --lcd-admin-radius: 12px;
+    --lcd-admin-shadow: 0 1px 3px rgba(0, 0, 0, 0.06), 0 4px 12px rgba(0, 0, 0, 0.04);
+    --lcd-admin-font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+/* ============================================================
+   Admin Page Wrapper
+   ============================================================ */
+.lcd-admin-wrap {
+    margin: 0;
+    padding: 0;
+    max-width: 100%;
+    font-family: var(--lcd-admin-font);
+}
+
+.lcd-admin-wrap h1,
+.lcd-admin-wrap h2,
+.lcd-admin-wrap h3 {
+    font-family: var(--lcd-admin-font);
+}
+
+/* ============================================================
+   Admin Header
+   ============================================================ */
+.lcd-admin-header {
+    background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+    margin: -20px -20px 0 0;
+    padding: 0;
+    border-bottom: none;
+}
+
+.lcd-admin-header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1400px;
+    padding: 24px 32px;
+}
+
+.lcd-admin-title-group {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.lcd-admin-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    background: rgba(37, 99, 235, 0.15);
+    color: #60a5fa;
+}
+
+.lcd-admin-header h1 {
+    font-size: 22px;
+    font-weight: 700;
+    color: #ffffff;
+    margin: 0;
+    padding: 0;
+    letter-spacing: -0.02em;
+    line-height: 1.3;
+}
+
+.lcd-admin-subtitle {
+    font-size: 13px;
+    color: #94a3b8;
+    margin: 2px 0 0 0;
+    font-weight: 400;
+}
+
+.lcd-admin-version {
+    font-size: 12px;
+    font-weight: 600;
+    color: #64748b;
+    background: rgba(100, 116, 139, 0.15);
+    padding: 4px 10px;
+    border-radius: 6px;
+}
+
+/* ============================================================
+   Admin Body & Grid
+   ============================================================ */
+.lcd-admin-body {
+    padding: 28px 32px 40px;
+    max-width: 1400px;
+}
+
+.lcd-admin-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 28px;
+    align-items: start;
+}
+
+@media (max-width: 1200px) {
+    .lcd-admin-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ============================================================
+   Admin Cards
+   ============================================================ */
+.lcd-admin-card {
+    background: var(--lcd-admin-card-bg);
+    border: 1px solid var(--lcd-admin-border);
+    border-radius: var(--lcd-admin-radius);
+    padding: 24px;
+    margin-bottom: 20px;
+    box-shadow: var(--lcd-admin-shadow);
+}
+
+.lcd-admin-card h2 {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--lcd-admin-text);
+    margin: 0 0 18px 0;
+    padding: 0 0 14px 0;
+    border-bottom: 1px solid var(--lcd-admin-border);
+    line-height: 1.4;
+}
+
+.lcd-admin-card h2 .dashicons {
+    color: var(--lcd-admin-primary);
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+}
+
+/* ============================================================
+   Field Grid
+   ============================================================ */
+.lcd-admin-field-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+@media (max-width: 600px) {
+    .lcd-admin-field-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.lcd-field-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.lcd-field-group label {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--lcd-admin-text);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.lcd-field-group input[type="text"],
+.lcd-field-group input[type="number"],
+.lcd-field-group select {
+    width: 100%;
+    padding: 9px 12px;
+    font-size: 14px;
+    font-family: var(--lcd-admin-font);
+    border: 1px solid var(--lcd-admin-border);
+    border-radius: 8px;
+    background: #f8fafc;
+    color: var(--lcd-admin-text);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    outline: none;
+}
+
+.lcd-field-group input[type="text"]:focus,
+.lcd-field-group input[type="number"]:focus,
+.lcd-field-group select:focus {
+    border-color: var(--lcd-admin-primary);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    background: #fff;
+}
+
+.lcd-field-group input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    accent-color: var(--lcd-admin-primary);
+    cursor: pointer;
+}
+
+/* ============================================================
+   Shortcode Card
+   ============================================================ */
+.lcd-shortcode-card {
+    background: linear-gradient(135deg, #f0f9ff, #eff6ff);
+    border-color: #bfdbfe;
+}
+
+.lcd-shortcode-box {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #ffffff;
+    padding: 10px 14px;
+    border-radius: 8px;
+    border: 1px solid #dbeafe;
+    margin-bottom: 10px;
+}
+
+.lcd-shortcode-box code {
+    flex: 1;
+    font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+    font-size: 14px;
+    color: var(--lcd-admin-primary);
+    background: none;
+    padding: 0;
+    user-select: all;
+}
+
+.lcd-copy-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 6px 12px;
+    font-size: 12px;
+    font-weight: 600;
+    font-family: var(--lcd-admin-font);
+    color: var(--lcd-admin-primary);
+    background: #eff6ff;
+    border: 1px solid #bfdbfe;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+}
+
+.lcd-copy-btn:hover {
+    background: var(--lcd-admin-primary);
+    color: #fff;
+    border-color: var(--lcd-admin-primary);
+}
+
+.lcd-copy-btn.lcd-copied {
+    background: var(--lcd-admin-accent);
+    color: #fff;
+    border-color: var(--lcd-admin-accent);
+}
+
+.lcd-shortcode-hint {
+    font-size: 11px;
+    color: var(--lcd-admin-text-secondary);
+    margin: 0;
+    font-style: normal;
+    word-break: break-all;
+}
+
+/* ============================================================
+   Card Manager
+   ============================================================ */
+#lcd-cards-manager {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin: 16px 0;
+}
+
+.lcd-card-manager-item {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr auto;
+    gap: 8px;
+    align-items: end;
+    padding: 14px;
+    background: #f8fafc;
+    border: 1px solid var(--lcd-admin-border);
+    border-radius: 8px;
+    transition: border-color 0.2s ease;
+}
+
+.lcd-card-manager-item:hover {
+    border-color: var(--lcd-admin-primary-light);
+}
+
+.lcd-card-manager-item input {
+    padding: 7px 10px;
+    font-size: 13px;
+    font-family: var(--lcd-admin-font);
+    border: 1px solid var(--lcd-admin-border);
+    border-radius: 6px;
+    background: #fff;
+    color: var(--lcd-admin-text);
+    outline: none;
+}
+
+.lcd-card-manager-item input:focus {
+    border-color: var(--lcd-admin-primary);
+    box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.08);
+}
+
+.lcd-card-manager-item label {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--lcd-admin-text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin-bottom: 4px;
+    display: block;
+}
+
+.lcd-remove-card-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 6px;
+    border: 1px solid #fecaca;
+    background: #fef2f2;
+    color: #ef4444;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 18px;
+    line-height: 1;
+    margin-bottom: 1px;
+}
+
+.lcd-remove-card-btn:hover {
+    background: #ef4444;
+    color: #fff;
+    border-color: #ef4444;
+}
+
+.lcd-add-card-btn {
+    display: inline-flex !important;
+    align-items: center;
+    gap: 6px;
+    font-family: var(--lcd-admin-font) !important;
+    font-weight: 600 !important;
+}
+
+.lcd-add-card-btn .dashicons {
+    font-size: 16px;
+    width: 16px;
+    height: 16px;
+}
+
+/* Hidden field for JSON storage */
+.lcd-hidden-field {
+    position: absolute;
+    left: -9999px;
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* ============================================================
+   Save Button
+   ============================================================ */
+.lcd-save-btn {
+    background: var(--lcd-admin-primary) !important;
+    border-color: var(--lcd-admin-primary) !important;
+    color: #fff !important;
+    font-family: var(--lcd-admin-font) !important;
+    font-weight: 600 !important;
+    font-size: 14px !important;
+    padding: 10px 28px !important;
+    border-radius: 8px !important;
+    transition: all 0.2s ease !important;
+    box-shadow: 0 1px 3px rgba(37, 99, 235, 0.3) !important;
+}
+
+.lcd-save-btn:hover {
+    background: #1d4ed8 !important;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.35) !important;
+}
+
+/* ============================================================
+   Preview Panel
+   ============================================================ */
+.lcd-preview-card {
+    position: sticky;
+    top: 50px;
+}
+
+.lcd-preview-container {
+    background: var(--lcd-admin-bg);
+    border: 1px solid var(--lcd-admin-border);
+    border-radius: 10px;
+    padding: 20px 10px;
+    min-height: 400px;
+    overflow: hidden;
+}
+
+.lcd-preview-container .lcd-wrapper {
+    margin: 20px auto;
+    max-width: 100%;
+    transform: scale(0.85);
+    transform-origin: top center;
+}
+
+/* ============================================================
+   WordPress Admin Notices Override
+   ============================================================ */
+.lcd-admin-wrap .updated,
+.lcd-admin-wrap .notice {
+    margin: 0 0 16px 0;
+    border-radius: 8px;
+}
+
+/* ============================================================
+   Color Picker Adjustments
+   ============================================================ */
+.lcd-field-group .wp-picker-container {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.lcd-field-group .wp-picker-container .wp-color-result {
+    border-radius: 6px !important;
+}
+
+/* ============================================================
+   Responsive Admin
+   ============================================================ */
+@media (max-width: 782px) {
+    .lcd-admin-header-inner {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+        padding: 20px;
+    }
+
+    .lcd-admin-body {
+        padding: 20px 16px;
+    }
+
+    .lcd-card-manager-item {
+        grid-template-columns: 1fr;
+    }
+
+    .lcd-preview-container .lcd-wrapper {
+        transform: scale(0.7);
+    }
+}
